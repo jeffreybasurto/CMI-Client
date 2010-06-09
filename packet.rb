@@ -3,7 +3,8 @@ require 'yaml'
 class Packet
   # These are the expected types per each packet type.
   # packet is a fail if these packets do not exist.
-  @expected = {"chat"=>["sender","text"]}
+  @expected = {"chat"=>["sender","text"],
+               "error"=>["text"]}
   class << self; attr_accessor :expected; end
 
   def initialize data
@@ -29,15 +30,15 @@ class Packet
         end
         return false
     end
-    return Packet.error "Erroneous data type for packet." # return false on anything else.
+    return Packet.error "Bad data type for packet." # return false on anything else.
   end
   # do whatever this packet is designed to do right now.
   def execute
     case @data["type"]
       when "chat"
-        MudConnection.connections.each do |socket|
-          socket.send_data self.to_s
-        end
+        puts @data["sender"] + " " + @data["text"]
+      when "error"
+        puts "ERROR: " + @data["text"]
     end
   end
   def to_s
