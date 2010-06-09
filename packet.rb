@@ -15,6 +15,11 @@ class Packet
     end
   end
 
+  # login as a certain mud.
+  def self.login name, pw="none"
+    Packet.new({"type"=>"login", "mud"=>name, "password"=>"none"})
+  end
+
   def self.error txt
     Packet.new({"type"=>"error", "text"=>txt, "from"=>"local"})
   end
@@ -43,6 +48,8 @@ class Packet
         puts @data["sender"] + " #{@data["channel"]}s, '" + @data["text"] + "'"
       when "error"
         puts "ERROR: " + @data["text"]
+      when "notify"
+        puts "Notify: #{@data["event"]}: #{@data["text"]}"
     end
   end
   def to_s

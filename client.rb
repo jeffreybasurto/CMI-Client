@@ -1,9 +1,12 @@
 require 'eventmachine'
-
 load 'packet.rb'
 
 module Rclient
-  def post_init; $client = self;  end
+  def post_init
+    $client = self
+
+    send_data Packet.login("CoralMud")
+  end
  
   def receive_data data
     # TODO need to make some way to capture and ensure a full packet is being sent.
