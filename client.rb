@@ -31,7 +31,7 @@ end
 receive_thread = Thread.new do
   loop do 
     next if (s = gets.strip).empty?
-    $client.send_data s + "\n"
+    $client.send_data Packet.chat(s).to_s + "\n"
   end 
 end
  

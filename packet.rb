@@ -19,6 +19,10 @@ class Packet
     Packet.new({"type"=>"error", "text"=>txt})
   end
 
+  def self.chat txt
+    Packet.new({"type"=>"chat", "sender"=>"Default", "text"=>txt})
+  end
+
   # is this packet valid?
   def is_invalid?
     case @data
