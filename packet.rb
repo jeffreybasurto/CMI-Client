@@ -3,8 +3,8 @@ require 'yaml'
 class Packet
   # These are the expected types per each packet type.
   # packet is a fail if these packets do not exist.
-  @expected = {"chat"=>["sender","text"],
-               "error"=>["text"]}
+  @expected = YAML.load_file("packet_config.yml")
+
   class << self; attr_accessor :expected; end
 
   def initialize data
