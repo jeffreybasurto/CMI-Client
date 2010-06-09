@@ -16,11 +16,11 @@ class Packet
   end
 
   def self.error txt
-    Packet.new({"type"=>"error", "text"=>txt})
+    Packet.new({"type"=>"error", "text"=>txt, "from"=>"local"})
   end
 
   def self.chat txt
-    Packet.new({"type"=>"chat", "sender"=>"Default", "text"=>txt})
+    Packet.new({"type"=>"chat", "sender"=>"Default", "channel"=>"intermud", "text"=>txt})
   end
 
   # is this packet valid?
@@ -40,7 +40,7 @@ class Packet
   def execute
     case @data["type"]
       when "chat"
-        puts @data["sender"] + " " + @data["text"]
+        puts @data["sender"] + " #{@data["channel"]}s, '" + @data["text"] + "'"
       when "error"
         puts "ERROR: " + @data["text"]
     end
