@@ -1,5 +1,7 @@
 require 'eventmachine'
 
+load 'packet.rb'
+
 module Rclient
   def post_init; $client = self;  end
  
